@@ -15,7 +15,12 @@ const plugin: Plugin<PaceMetaInput> = {
                 'x-api-key': config.api_key,
             },
             body: JSON.stringify({
-                data: event,
+                data: {
+                    ...event,
+                    properties: Object.fromEntries(
+                        Object.entries(event.properties || {}).filter(([key, _]) => !key.startsWith('$'))
+                    ),
+                },
             }),
             method: 'POST',
         } as Webhook),
