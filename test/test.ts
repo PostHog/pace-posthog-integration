@@ -77,6 +77,20 @@ describe('plugin tests', () => {
             'x-api-key': 'i-am-an-api-key',
         })
         expect(webhook1).toHaveProperty('method', 'POST')
-        expect(webhook1).toHaveProperty('body', JSON.stringify({ data: mockEvent }))
+        expect(webhook1).toHaveProperty(
+            'body',
+            JSON.stringify({
+                data: {
+                    uuid: '10000000-0000-4000-0000-000000000000',
+                    team_id: 1,
+                    distinct_id: '1234',
+                    event: 'my-event',
+                    timestamp: mockEvent.timestamp,
+                    properties: {
+                        foo: 'bar',
+                    },
+                },
+            })
+        )
     })
 })
